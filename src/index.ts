@@ -1,9 +1,6 @@
-import { match } from "assert"
-import fs from "fs"
+import CsvFileReader from "./CsvFileReader"
 
-const matches = fs.readFileSync("football.csv" , {
-    encoding: "utf-8"
-}).split("\n").map((match : string) : string[] => match.split(","))
+const reader = new CsvFileReader("football.csv")
 
 // enumeration
 enum MatchResult{
@@ -11,9 +8,10 @@ enum MatchResult{
     AwayWin = "A",
     Draw =  "D"
 }
+
 let manuitedHomewins = 0
 let manunitedAwaywins = 0
-for(let match of matches){
+for(let match of reader.data){
     if(match[1] === "Man United" && match[5] === MatchResult.HomeWin){
         manuitedHomewins++
     }
