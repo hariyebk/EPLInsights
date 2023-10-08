@@ -1,23 +1,17 @@
+import MatchReader from "./MatchReader"
 import CsvFileReader from "./CsvFileReader"
+import {MatchResult} from "./enum"
+import Summary from "./Summary"
+import Win from "./analyers/Wins"
+import ConsoleReport from "./reports/ConsoleReport"
 
-const reader = new CsvFileReader("football.csv")
+const csvfilereader = new CsvFileReader("football.csv")
+const matchreader = new MatchReader(csvfilereader)
+matchreader.load()
+const win = new Win("Bournemouth")
+const consolereport = new ConsoleReport()
+const summary = new Summary(win, consolereport)
+summary.buildAndPrintReport(matchreader.matches)
 
-// enumeration
-enum MatchResult{
-    HomeWin = "H",
-    AwayWin = "A",
-    Draw =  "D"
-}
+matchreader.load()
 
-let manuitedHomewins = 0
-let manunitedAwaywins = 0
-for(let match of reader.data){
-    if(match[1] === "Man United" && match[5] === MatchResult.HomeWin){
-        manuitedHomewins++
-    }
-    else if(match[2] === "Man United" && match[5] === MatchResult.AwayWin){
-        manunitedAwaywins++
-    }
-}
-
-console.log(`Man United has won A total of ${manuitedHomewins + manunitedAwaywins} games (Home ${manuitedHomewins}, Away ${manunitedAwaywins})`)
