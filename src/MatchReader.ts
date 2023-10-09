@@ -1,11 +1,17 @@
-import { datestringTodate } from "./utils"
+import { datestringTodate } from "./utils/stringTodate"
 import { MatchResult } from "./enum"
+import CsvFileReader from "./CsvFileReader"
 type MatchData = [Date, string, string, number, number, MatchResult, string]
 interface DataReader{
     read(): void
     data: string[][]
 }
 class MatchReader{
+    static Initializer(filename: string): MatchReader{
+        return new MatchReader(
+            new CsvFileReader(filename)
+        )
+    }
     matches: MatchData[] = []
     constructor(public reader : DataReader){}
     load(): void{

@@ -1,4 +1,4 @@
-import { datestringTodate } from "../utils"
+import { datestringTodate } from "../utils/stringTodate"
 import { MatchResult } from "../enum"
 import CsvFileReader from "./CsvFileReader"
 import MatchData from "../MatchData"

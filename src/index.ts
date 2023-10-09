@@ -1,16 +1,19 @@
 import MatchReader from "./MatchReader"
-import CsvFileReader from "./CsvFileReader"
-import {MatchResult} from "./enum"
 import Summary from "./Summary"
 import Win from "./analyers/Wins"
 import ConsoleReport from "./reports/ConsoleReport"
+import HtmlReport from "./reports/HtmlReport"
+import Goals from "./analyers/Goals"
 
-const csvfilereader = new CsvFileReader("football.csv")
-const matchreader = new MatchReader(csvfilereader)
+
+const matchreader = MatchReader.Initializer('football.csv')
 matchreader.load()
-const win = new Win("Bournemouth")
+
+// const win = new Win("Bournemouth")
 const consolereport = new ConsoleReport()
-const summary = new Summary(win, consolereport)
+// const htmlreport = new HtmlReport()
+const goals = new Goals()
+const summary = new Summary(goals, consolereport)
 summary.buildAndPrintReport(matchreader.matches)
 
 matchreader.load()
